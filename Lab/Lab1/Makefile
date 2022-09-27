@@ -7,10 +7,10 @@ all: Game_easy.exe Game_difficult.exe Game_impossible.exe
 
 
 Game_easy.exe: $(OBJS) helper_easy.o
-	g++ -o $@ $(CPPFLAGS) $^
+	g++ -o $@ $(CPPFLAGS) $^ 
 
 Game_difficult.exe: $(OBJS) helper_difficult.o
-	g++ -o $@ $(CPPFLAGS) $^
+	g++ -o $@ $(CPPFLAGS) $^ 
 
 Game_impossible.exe: $(OBJS) helper_impossible.o
 	g++ -o $@ $(CPPFLAGS) $^
