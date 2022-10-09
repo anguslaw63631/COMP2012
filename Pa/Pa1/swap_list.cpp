@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Swap::Swap(const char* original_course_name, const char* target_course_name, Swap* next) {
+Swap::Swap(const char* const original_course_name, const char* const target_course_name, Swap* const next) {
     // TODO
 }
 
@@ -35,10 +35,10 @@ void Swap_List::print_list() const {
     }
 }
 
-Swap* Swap_List::get_head() {
+Swap* Swap_List::get_head() const {
     return head;
 }
 
-void Swap_List::set_head(Swap* head) {
+void Swap_List::set_head(Swap* const head) {
     this->head = head;
 }

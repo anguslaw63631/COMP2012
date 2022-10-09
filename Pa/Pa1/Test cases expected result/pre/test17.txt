@@ -151,7 +151,7 @@ Pending Credit: 0
 -------------------
 Student Name: Cindy
 Student ID: 1002	 GPA: 4.3
-Current Credit: 0 out of Max Credit: 18
+Current Credit: 3 out of Max Credit: 18
 
 Num Courses Enrolled: 1
 Course Enrolled: 

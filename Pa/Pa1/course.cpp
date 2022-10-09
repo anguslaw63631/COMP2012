@@ -5,7 +5,7 @@
 
 using namespace std;
 
-Course::Course(const char* name, int num_credit, int course_capacity) {
+Course::Course(const char* const name, const int num_credit, const int course_capacity) {
     // TODO
 }
 
@@ -33,50 +33,50 @@ void Course::print_info() const {
     cout << endl;
 }
 
-char* Course::get_name() {
+char* Course::get_name() const {
     return name;
 }
 
-int Course::get_num_credit() {
+int Course::get_num_credit() const {
     return num_credit;
 }
 
-int Course::get_capacity() {
+int Course::get_capacity() const {
     return capacity;
 }
 
-int Course::get_size() {
+int Course::get_size() const {
     return size;
 }
 
-Wait_List* Course::get_wait_list() {
+Wait_List* Course::get_wait_list() const {
     return wait_list;
 }
 
-int* Course::get_students_enrolled() {
+int* Course::get_students_enrolled() const {
     return students_enrolled;
 }
 
-void Course::set_name(char* name) {
+void Course::set_name(char* const name) {
     this->name = name;
 }
 
-void Course::set_num_credit(int num_credit) {
+void Course::set_num_credit(const int num_credit) {
     this->num_credit = num_credit;
 }
 
-void Course::set_capacity(int capacity) {
+void Course::set_capacity(const int capacity) {
     this->capacity = capacity;
 }
 
-void Course::set_size(int size) {
+void Course::set_size(const int size) {
     this->size = size;
 }
 
-void Course::set_wait_list(Wait_List* wait_list) {
+void Course::set_wait_list(Wait_List* const wait_list) {
     this->wait_list = wait_list;
 }
 
-void Course::set_students_enrolled(int* students_enrolled){
+void Course::set_students_enrolled(int* const students_enrolled){
     this->students_enrolled = students_enrolled;
 }

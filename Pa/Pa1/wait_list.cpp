@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Student_ListNode::Student_ListNode(int student_id, Student_ListNode* next) {
+Student_ListNode::Student_ListNode(const int student_id, Student_ListNode* const next) {
     // TODO
 }
 
@@ -29,18 +29,18 @@ void Wait_List::print_list() const {
     }
 }
 
-Student_ListNode* Wait_List::get_head() {
+Student_ListNode* Wait_List::get_head() const {
     return head;
 }
 
-Student_ListNode* Wait_List::get_end() {
+Student_ListNode* Wait_List::get_end() const {
     return end;
 }
 
-void Wait_List::set_head(Student_ListNode* head) {
+void Wait_List::set_head(Student_ListNode* const head) {
     this->head = head;
 }
 
-void Wait_List::set_end(Student_ListNode* end) {
+void Wait_List::set_end(Student_ListNode* const end) {
     this->end = end;
 }
