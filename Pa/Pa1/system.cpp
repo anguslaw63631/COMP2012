@@ -79,10 +79,12 @@ bool System::add(const int student_id, const char* const course_name) {
     int curr_cr = tempStudent->get_curr_credit();
     int max_cr = tempStudent->get_max_credit();
     int enrolled_num = tempStudent->get_num_enrolled_course();
-    char** enrolled_courses = tempStudent->get_enrolled_courses();
+
+
+    tempStudent->get_enrolled_courses()[enrolled_num] = new char[strlen(course_name)+1];
 
     Course* tempCourse = get_course_database()->get_course_by_name(course_name);
-
+    strcpy(tempStudent->get_enrolled_courses()[enrolled_num], tempCourse->get_name());
     int course_cr = tempCourse->get_num_credit();
     int* enrolled_students = tempCourse->get_students_enrolled();
     int num_enrolled_course = tempCourse->get_size();
@@ -93,9 +95,7 @@ bool System::add(const int student_id, const char* const course_name) {
     tempStudent->set_curr_credit(curr_cr+course_cr);
 
     
-    enrolled_courses[enrolled_num] = tempCourse->get_name();
     enrolled_num++;
-    tempStudent->set_enrolled_courses(enrolled_courses);
     tempStudent->set_num_enrolled_course(enrolled_num);
 
     

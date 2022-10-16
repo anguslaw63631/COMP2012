@@ -41,6 +41,7 @@ Wait_List::Wait_List(const Wait_List &wait_list)
     
     }else{
         head = nullptr;
+        end = nullptr;
     }
 }
 
@@ -49,13 +50,14 @@ Wait_List::~Wait_List()
     // TODO
 
     Student_ListNode *current = head;
-    while (current != 0)
+    while (current != nullptr)
     {
         Student_ListNode *next = current->next;
         delete current;
         current = next;
     }
-    head = 0;
+    head = nullptr;
+    end = nullptr;
 }
 
 void Wait_List::print_list() const
