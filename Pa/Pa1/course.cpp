@@ -7,14 +7,40 @@ using namespace std;
 
 Course::Course(const char* const name, const int num_credit, const int course_capacity) {
     // TODO
+
+    this->name = new char[strlen(name) + 1];
+    strcpy(this->name, name);
+
+    this->num_credit = num_credit;
+    this->capacity = course_capacity;
+    size = 0;
+    wait_list = new Wait_List;
+    students_enrolled = new int[course_capacity];
 }
 
 Course::Course(const Course& course) {
     // TODO
+
+    name = new char[strlen(course.name) + 1];
+    strcpy(name, course.get_name());
+
+    num_credit = course.get_num_credit();
+    capacity = course.get_capacity();
+    size = course.get_size();
+    wait_list = new Wait_List(*course.get_wait_list());
+    //wait_list = course.get_wait_list();
+    students_enrolled = new int[capacity];
+    for(int i=0;i<size;i++){
+        students_enrolled[i] = course.get_students_enrolled()[i];
+    }
 }
 
 Course::~Course() {
     // TODO
+
+    delete[] name;
+    delete wait_list;
+    delete[] students_enrolled;
 }
 
 void Course::print_info() const {

@@ -52,14 +52,65 @@ void System::admit(const char* const name, const int student_id, const double gp
 
 bool System::apply_overload(const int student_id, const int request_credit) {
     // TODO
+
+    if(request_credit >30){
+        return false;
+    }
+
+    if(request_credit >= 24){
+        if(get_student_database()->get_student_by_id(student_id)->get_gpa() < 3.7){
+            return false;
+        }
+    }
+
+    if(request_credit >= 18){
+        if(get_student_database()->get_student_by_id(student_id)->get_gpa() < 3.3){
+            return false;
+        }
+    }
+    get_student_database()->get_student_by_id(student_id)->set_max_credit(request_credit);
+    return true;
 }
 
 bool System::add(const int student_id, const char* const course_name) {
     // TODO
+    Student* tempStudent = get_student_database()->get_student_by_id(student_id);
+
+    int curr_cr = tempStudent->get_curr_credit();
+    int max_cr = tempStudent->get_max_credit();
+    int enrolled_num = tempStudent->get_num_enrolled_course();
+    char** enrolled_courses = tempStudent->get_enrolled_courses();
+
+    Course* tempCourse = get_course_database()->get_course_by_name(course_name);
+
+    int course_cr = tempCourse->get_num_credit();
+    int* enrolled_students = tempCourse->get_students_enrolled();
+    int num_enrolled_course = tempCourse->get_size();
+    if(curr_cr+course_cr > max_cr){
+        return false;
+    }
+
+    tempStudent->set_curr_credit(curr_cr+course_cr);
+
+    
+    enrolled_courses[enrolled_num] = tempCourse->get_name();
+    enrolled_num++;
+    tempStudent->set_enrolled_courses(enrolled_courses);
+    tempStudent->set_num_enrolled_course(enrolled_num);
+
+    
+    enrolled_students[num_enrolled_course] = tempStudent->get_student_id();
+    num_enrolled_course++;
+    tempCourse->set_students_enrolled(enrolled_students);
+    tempCourse->set_size(num_enrolled_course);
+    
+    return true;
 }
 
 bool System::swap(const int student_id, const char* const original_course_name, const char* const target_course_name) {
     // TODO
+
+    return true;
 }
 
 void System::drop(const int student_id, const char* const course_name) {

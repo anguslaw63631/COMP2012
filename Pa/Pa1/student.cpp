@@ -10,14 +10,57 @@ const int STUDENT_MAX_NUM_COURSE = 10;
 
 Student::Student(const char* const name, const int student_id, const double gpa) {
     // TODO
+    this->name = new char[strlen(name) + 1];
+    strcpy(this->name, name);
+
+    this->student_id = student_id;
+    this->gpa = gpa;
+
+    max_credit = STUDENT_INIT_MAX_CREDIT;
+    curr_credit = 0;
+    num_enrolled_course = 0;
+    enrolled_courses = new char*[STUDENT_MAX_NUM_COURSE+1];
+
+    pending_credit = 0;
+    swap_list = new Swap_List;
+    
 }
 
 Student::Student(const Student& student) {
     // TODO
+    this->name = new char[strlen(student.name) + 1];
+    strcpy(this->name, student.get_name());
+    this->student_id = student.get_student_id();
+    this->gpa = student.get_gpa();
+    this->max_credit = student.get_max_credit();
+    this->curr_credit = student.get_curr_credit();
+
+    this->num_enrolled_course = student.get_num_enrolled_course();
+    this->enrolled_courses = new char*[STUDENT_MAX_NUM_COURSE];
+    for (int i = 0; i < num_enrolled_course; i++)
+    {
+        
+        this->enrolled_courses[i] = new char[strlen(student.get_enrolled_courses()[i]) + 1];
+        strcpy(this->enrolled_courses[i], student.get_enrolled_courses()[i]);
+    }
+
+    this->pending_credit = student.get_pending_credit();
+    this->swap_list = new Swap_List(*student.get_swap_list());
+
+    
 }
 
 Student::~Student() {
     // TODO
+
+    delete[] name;
+    // for (int i = 0; i < num_enrolled_course; i++)
+    // {
+    //     delete[] enrolled_courses[i];
+    // }
+    delete[] enrolled_courses;
+
+    delete swap_list;
 }
 
 void Student::print_info() const {
