@@ -13,10 +13,10 @@ pa1_leak.exe: $(OBJECTS)
 	g++ -o $@ $(CPPFLAGS_L) $^
 
 cleanZip:
-	rm  -f submit.zip
+	rm  -f AAA_submit.zip
 
 submit.zip: cleanZip
-	zip -r submit.zip $(ZIPFILES)
+	zip -r AAA_submit.zip $(ZIPFILES)
 
 %.o: %.cpp
 	g++ $(CPPFLAGS) -c $< -o $@

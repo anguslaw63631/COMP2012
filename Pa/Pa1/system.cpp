@@ -20,11 +20,12 @@ void join_waitlist(const int student_id, Course* course) {
     // TODO
     if(course->get_wait_list()->get_head() != nullptr){
        
-        cout<<"std id"<<student_id<<endl;
+       // cout<<"std id"<<student_id<<endl;
         Student_ListNode* StuN = course->get_wait_list()->get_head();
         Student_ListNode* newStuN = new Student_ListNode(student_id,nullptr);
         while (StuN->next != nullptr)
         {
+            //cout<<"std id inside:"<<StuN->student_id << "2"<<newStuN->student_id <<endl;
             StuN = StuN->next;
         }
         StuN->next = newStuN;
@@ -163,14 +164,20 @@ bool System::swap(const int student_id, const char* const original_course_name, 
         return false;
     }
 
-    if(tarC->get_size()<=tarC->get_capacity()){
+    if(tarC->get_size()<tarC->get_capacity()){
+        // cout<<student_id<<"|||"<<original_course_name<<endl;
+       
         add(student_id,target_course_name);
+        
         drop(student_id,original_course_name);
     }else{
-        join_waitlist(student_id,tarC);
-        stu->set_pending_credit(pend_cr+tarC_cr);
-        if(stu->get_swap_list()->get_head() != nullptr){
+        // cout<<student_id<<"|||"<<original_course_name<<endl;
 
+        //cout<<"te2222st:" <<orgC->get_name()<<endl;
+
+        join_waitlist(student_id,tarC);
+        stu->set_pending_credit(pend_cr+tarC_cr-orgC_cr);
+        if(stu->get_swap_list()->get_head() != nullptr){
         Swap* StuN = stu->get_swap_list()->get_head();
         Swap* newStuN = new Swap(original_course_name,target_course_name,nullptr);
         while (StuN->next != nullptr)
@@ -178,10 +185,9 @@ bool System::swap(const int student_id, const char* const original_course_name, 
             StuN = StuN->next;
         }
         StuN->next = newStuN;
-        
-        }else{
-        Swap* stuN= new Swap(original_course_name,target_course_name,nullptr);
-        stu->get_swap_list()->set_head(stuN);
+        }
+        else{
+        stu->get_swap_list()->set_head(new Swap(original_course_name,target_course_name,nullptr));
         }
     }
     return true;
@@ -198,20 +204,59 @@ void System::drop(const int student_id, const char* const course_name) {
     int orgC_cr = orgC->get_num_credit();
 
     stu->set_curr_credit(curr_cr-orgC_cr);
-    delete[] stu->get_enrolled_courses()[search_course_index(stu,course_name)];
+    if(stu->get_enrolled_courses()[search_course_index(stu,course_name)] == stu->get_enrolled_courses()[stu->get_num_enrolled_course()-1]){
+        //cout<<"test1"<<endl;
+        delete[] stu->get_enrolled_courses()[search_course_index(stu,course_name)];
+    }else{
+        //cout<<"test2"<<endl;
+        stu->get_enrolled_courses()[search_course_index(stu,course_name)] = stu->get_enrolled_courses()[stu->get_num_enrolled_course()-1];
+        //delete[] stu->get_enrolled_courses()[stu->get_num_enrolled_course()-1];
+    }
+    
     stu->set_num_enrolled_course(stu->get_num_enrolled_course()-1);
 
     if(orgC->get_wait_list()->get_head()!=nullptr){
+        
+        //cout<<"test"<<endl;
         Student_ListNode* tempNode = orgC->get_wait_list()->get_head();
         int stuId= tempNode->student_id;
         orgC->get_students_enrolled()[search_student_id(student_id,orgC)] =stuId;
         Student* temp = get_student_database()->get_student_by_id(stuId);
         temp->set_curr_credit(temp->get_curr_credit()+orgC_cr);
+        
+        if(temp->get_swap_list()->get_head()!=nullptr){
+            //cout<<"test:" <<temp->get_name()<<endl;
+            Swap* tempNode2 = temp->get_swap_list()->get_head();
+            while (strcmp(tempNode2->target_course_name,course_name)!=0 || tempNode2->next!=nullptr)
+            {
+                tempNode2 = tempNode2->next;
+            }
+            if(strcmp(tempNode2->target_course_name,course_name)==0){
+                Course* swapC = get_course_database()->get_course_by_name(tempNode2->original_course_name);
+                
+                drop(temp->get_student_id(),swapC->get_name());
+
+                temp->get_swap_list()->set_head(nullptr);
+            }
+            
+            
+        }
+       
+
         temp->get_enrolled_courses()[temp->get_num_enrolled_course()] = new char[strlen(course_name)+1];
-        strcpy(stu->get_enrolled_courses()[temp->get_num_enrolled_course()], orgC->get_name());
+        //cout<<"test:" <<temp->get_student_id()<<endl;
+        strcpy(temp->get_enrolled_courses()[temp->get_num_enrolled_course()], orgC->get_name());
+        
+
         temp->set_num_enrolled_course(temp->get_num_enrolled_course()+1);
+   
         temp->set_pending_credit(temp->get_pending_credit()-orgC_cr);
+
+        if(temp->get_pending_credit()<0){
+             temp->set_pending_credit(0);
+        }
         orgC->get_wait_list()->set_head(tempNode->next);
+
         delete tempNode;
 
     }else{

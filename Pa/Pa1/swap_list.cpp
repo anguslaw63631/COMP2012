@@ -58,24 +58,21 @@ Swap_List::Swap_List(const Swap_List &swap_list)
     }else{
         head = nullptr;
     }
-    
 }
+    
 
 Swap_List::~Swap_List()
 {
     // TODO
 
-    Swap *tempSwap;
-    while (head != nullptr)
+    Swap *current = head;
+    while (current != nullptr)
     {
-        tempSwap = head;
-        if (head->next != nullptr)
-        {
-            head = head->next;
-        }
-
-        delete tempSwap;
+        Swap *next = current->next;
+        delete current;
+        current = next;
     }
+    head = nullptr;
 }
 
 void Swap_List::print_list() const

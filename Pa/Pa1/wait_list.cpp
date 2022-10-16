@@ -23,22 +23,26 @@ Wait_List::Wait_List(const Wait_List &wait_list)
     // TODO
     if(wait_list.get_head()!= nullptr){
         Student_ListNode* orgHead = wait_list.get_head();
+        //cout<<"test:"<< orgHead->next->next->student_id<<endl;
 
-        head = new Student_ListNode(orgHead->student_id,orgHead->next);
-        head->next = nullptr;
-
-        Student_ListNode* tempHead = head->next;
-
+        head = new Student_ListNode(orgHead->student_id,nullptr);
+        Student_ListNode* tempHead = head;
         orgHead = orgHead->next;
 
         while (orgHead!=nullptr)
         {
-            tempHead = new Student_ListNode(orgHead->student_id,orgHead->next);
-            tempHead->next = nullptr;
-            tempHead = tempHead->next;
+            
+            head->next = new Student_ListNode(orgHead->student_id,nullptr);
+            head = head->next;
             orgHead = orgHead->next;
         }
-    
+        //head->next =  new Student_ListNode(9999,nullptr);
+        //cout<<"test:"<< orgHead->student_id<<endl;
+        //cout<<"test:"<< head->next->next->student_id<<endl;
+        end = head;
+        head = tempHead;
+
+
     }else{
         head = nullptr;
         end = nullptr;
