@@ -61,4 +61,20 @@ void Container::display() const // Task 2 - To Do
     std::cout << "\n";
 
     // Write your code here
+
+
+    for(int i=0;i<_num_container;i++){
+
+    _containers[i]->display();
+
+  
+    }
+
+    for(int i=0;i<_num_textBox;i++){
+        this->_textBoxes[i]->display();
+    }
+    for(int i=0;i<_num_button;i++){
+        this->_buttons[i]->display();
+    }
+    
 }

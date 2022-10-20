@@ -11,7 +11,7 @@ DEPS	= $(OBJS:.o=.d)
 OBJECTS = $(addprefix $(OBJ_DIR)/,$(OBJS))
 OBJECTS_leak = $(addprefix $(OBJ_DIR_leak)/,$(OBJS))
 
-all: lab3.exe # lab3_leak.exe 
+all: lab3.exe  lab3_leak.exe 
 # Remove the '#' in the above line to add lab3_leak.exe,
 # if you want to test memory leakage on your machine. 
 

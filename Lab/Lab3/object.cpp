@@ -11,6 +11,9 @@ Object::Object()
 
 Object::~Object() // Task 3 - To Do
 {
+    delete _size;
+    delete _position;
+    delete[] _name;
     
 }
 
