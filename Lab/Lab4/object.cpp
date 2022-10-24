@@ -8,7 +8,23 @@ const Pair Object::getSize() const
 
 const Pair Object::getPosition() const  //Task 2
 {
+    Pair temp{0,0};
+    temp.x = this->_position.x;
+    temp.y = this->_position.y;
 
+    Object* tempObj = _parent;
+
+    while (tempObj!=nullptr)
+    {
+        temp.x += tempObj->_position.x;
+        temp.y += tempObj->_position.y;
+
+        tempObj = tempObj->_parent;
+    }
+    
+  
+    return temp;
+    
 }
 
 const char* Object::getName() const
@@ -18,12 +34,23 @@ const char* Object::getName() const
 
 void Object::setSize(int x, int y)  //Task 3
 {
-
+    if(x>SCREEN_RESOLUTION.x || y > SCREEN_RESOLUTION.y || x<0 || y<0){
+        cout<< "Invalid size of "<<this->_name<<endl;
+        return;
+    }
+    this->_size.x = x;
+    this->_size.y = y;
 }
 
 void Object::setPosition(int x, int y)  //Task 3
 {
+     if(x>SCREEN_RESOLUTION.x || y > SCREEN_RESOLUTION.y || x<0||y<0){
+        cout<< "Invalid position of "<<this->_name<<endl;
+        return;
+    }
 
+    this->_position.x = x;
+    this->_position.y = y;
 }
 
 void Object::setName(const char*name)
