@@ -12,7 +12,13 @@
  * Otherwise, modify nextGrid accordingly and return true.
 */
 bool putGrass(Grass* grass, Grid* nextGrid, const int x, const int y) {
-    
+    if(!nextGrid->outOfBounds(x,y)){
+        if(nextGrid->getCell(x,y) == nullptr){
+            nextGrid->setCell(grass,x,y);
+            return true;
+        }
+    }
+    delete grass;
     return false;
 }
 
@@ -26,6 +32,12 @@ bool putGrass(Grass* grass, Grid* nextGrid, const int x, const int y) {
  * to properly link this Grass with the copy for deletion if necessary.
 */
 void Grass::putSelf(Grid* nextGrid, const int x, const int y) {
+    Grass* temp = new Grass(*this);
+    if(putGrass(temp,nextGrid,x,y)){
+        setNextSelf(temp);
+    }else{
+        // delete temp;
+    }
     
 }
 
@@ -38,7 +50,8 @@ void Grass::putSelf(Grid* nextGrid, const int x, const int y) {
  * You may use putGrass() implemented above.
 */
 void Grass::putClone(Grid* nextGrid, const int x, const int y) const {
-    
+    Grass* temp = new Grass(getBoard());
+    putGrass(temp,nextGrid,x,y);
 }
 
 /**
@@ -51,5 +64,13 @@ void Grass::putClone(Grid* nextGrid, const int x, const int y) const {
  * checking if current cell has another Entity; it is done in putGrass().
 */
 void Grass::update(Grid* nextGrid) {
-    
+    if(countdown(spreadCounter,SPREAD_COOLDOWN)){
+        putClone(nextGrid,this->getX()+1,this->getY());
+        putClone(nextGrid,this->getX()-1,this->getY());
+        putClone(nextGrid,this->getX(),this->getY()+1);
+        putClone(nextGrid,this->getX(),this->getY()-1);
+        putSelf(nextGrid,this->getX(),this->getY());
+    }else{
+        putSelf(nextGrid,this->getX(),this->getY());
+    }
 }
