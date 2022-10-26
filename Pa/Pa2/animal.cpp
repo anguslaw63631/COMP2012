@@ -14,7 +14,19 @@
  * Otherwise, if current cell contains an Animal, delete the passed animal and return false.
 */
 bool Animal::putAnimal(Animal* animal, Grid* nextGrid, const int x, const int y) const {
-    
+    if(!nextGrid->outOfBounds(x,y)){
+        if(nextGrid->getCell(x,y) == nullptr){
+            nextGrid->setCell(animal,x,y);
+            return true;
+        }
+        else if (nextGrid->getCell(x,y)->toChar() == '.')
+        {
+            nextGrid->deleteCell(x,y);
+            nextGrid->setCell(animal,x,y);
+            return true;
+        }
+    }
+    delete animal;
     return false;
 }
 
@@ -94,16 +106,20 @@ void Animal::update(Grid* nextGrid) {
     // Animal first tries to eat
     // If hunger reaches 0, the animal dies
     if (countdown(hungerCounter, getHungerCooldown())) {
-        // ?
+        // if(hungerCounter<=0){
+        //     this->removeSelf(nextGrid);
+        //     return;
+        // }
+        this->removeSelf(nextGrid);
+            return;
     }
     else {
-        // ?
+        eat(nextGrid);
     }
-  
     // Animal then tries to breed if there are animals nearby
     if (breedCounter == 1) {
         if (hungerCounter / static_cast<float>(getHungerCooldown()) > 0.7f) {
-            // ?
+            breed(nextGrid);
         }
     }
     else {
@@ -112,9 +128,9 @@ void Animal::update(Grid* nextGrid) {
 
     // Animal finally moves if move cooldown is reached
     if (countdown(moveCounter, getMoveCooldown())) {
-        // ?
+        move(nextGrid);
     }
     else {
-        // ?
+        this->putSelf(nextGrid,this->getX(),this->getY());
     }
 }

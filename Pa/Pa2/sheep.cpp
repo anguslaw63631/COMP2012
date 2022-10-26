@@ -10,7 +10,12 @@
  * Hint: putAnimal() can be used.
 */
 void Sheep::putSelf(Grid* nextGrid, const int x, const int y) {
-    
+    Sheep* temp = new Sheep(*this);
+    if(putAnimal(temp,nextGrid,x,y)){
+        setNextSelf(temp);
+    }else{
+        // delete temp;
+    }
 }
 
 /**
@@ -21,7 +26,8 @@ void Sheep::putSelf(Grid* nextGrid, const int x, const int y) {
  * Hint: putAnimal() can be used.
 */
 void Sheep::putClone(Grid* nextGrid, const int x, const int y) const {
-    
+    Sheep* temp = new Sheep(getBoard());
+    putAnimal(temp,nextGrid,x,y);
 }
 
 /**
@@ -47,6 +53,12 @@ void Sheep::eat(Grid* nextGrid) {
         }
 
         // ?
+        if(adjEntity->toChar() == '.'){
+            adjEntity->removeSelf(nextGrid);
+            this->setHungerCounter(SHEEP_HUNGER_COOLDOWN);
+            return;
+        }
+        
     }
 }
 
@@ -85,5 +97,11 @@ void Sheep::breed(Grid* nextGrid) {
  * Otherwise, place it in the current position.
 */
 void Sheep::move(Grid* nextGrid) {
-    
+    int moveIndex = getRandomMovementIndex(nextGrid);
+    if(moveIndex == -1){
+        putSelf(nextGrid,this->getX(),this->getY());
+    }else{
+        putSelf(nextGrid,this->getX()+getAdjX(moveIndex),this->getY()+getAdjY(moveIndex));
+    }
+
 }
