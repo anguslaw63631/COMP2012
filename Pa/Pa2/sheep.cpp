@@ -85,7 +85,17 @@ void Sheep::breed(Grid* nextGrid) {
             continue;
         }
 
-        // ?
+        if(adjEntity->toChar() == 'S'){
+            int moveIndex = getRandomMovementIndex(nextGrid);
+            if(moveIndex == -1){
+                
+            }else{
+                putClone(nextGrid,this->getX()+getAdjX(moveIndex),this->getY()+getAdjY(moveIndex));
+                this->setBreedCounter(SHEEP_BREED_COOLDOWN);
+                return;
+            }
+            
+        }
     }
 }
 

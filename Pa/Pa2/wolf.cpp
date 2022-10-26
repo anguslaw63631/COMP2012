@@ -10,7 +10,12 @@
  * You may implement this similar to Sheep::putSelf().
 */
 void Wolf::putSelf(Grid* nextGrid, const int x, const int y) {
-    
+    Wolf* temp = new Wolf(*this);
+    if(putAnimal(temp,nextGrid,x,y)){
+        setNextSelf(temp);
+    }else{
+        // delete temp;
+    }
 }
 
 /**
@@ -20,7 +25,8 @@ void Wolf::putSelf(Grid* nextGrid, const int x, const int y) {
  * You may implement this similar to Sheep::putClone().
 */
 void Wolf::putClone(Grid* nextGrid, const int x, const int y) const {
-    
+    Wolf* temp = new Wolf(getBoard());
+    putAnimal(temp,nextGrid,x,y);
 }
 
 /**
@@ -41,7 +47,11 @@ void Wolf::eat(Grid* nextGrid) {
             continue;
         }
 
-        // ?
+         if(adjEntity->toChar() == 'S'){
+            adjEntity->removeSelf(nextGrid);
+            this->setHungerCounter(WOLF_HUNGER_COOLDOWN);
+            return;
+        }
     }
 }
 
@@ -63,7 +73,17 @@ void Wolf::breed(Grid* nextGrid) {
             continue;
         }
 
-        // ?
+           if(adjEntity->toChar() == 'W'){
+            int moveIndex = getRandomMovementIndex(nextGrid);
+            if(moveIndex == -1){
+                
+            }else{
+                putClone(nextGrid,this->getX()+getAdjX(moveIndex),this->getY()+getAdjY(moveIndex));
+                this->setBreedCounter(WOLF_BREED_COOLDOWN);
+                return;
+            }
+            
+        }
     }
 }
 
@@ -88,22 +108,76 @@ void Wolf::move(Grid* nextGrid) {
     // First, find a sheep to target
     
     // ?
+    Entity* adjEntity = getBoard()->getGrid()->getCell(0, 0);
+    bool sheepFound = false;
     for (int x=0; x<BOARD_SIZE_W; ++x) {
         for (int y=0; y<BOARD_SIZE_H; ++y) {
+            if(getBoard()->getGrid()->getCell(x, y) != nullptr){
+                Entity* tempEntity = getBoard()->getGrid()->getCell(x, y);
+                if(tempEntity != nullptr){
 
-            // ?
+                
+                if(tempEntity->toChar() == 'S'){
+
+                    
+                    if(adjEntity!=nullptr && adjEntity->toChar()== 'S'){
+
+                        int dist1= abs(this->getX()-adjEntity->getX())+abs(this->getY()-adjEntity->getY());
+                        int dist2= abs(this->getX()-tempEntity->getX())+abs(this->getY()-tempEntity->getY());
+                        if(dist2<dist1){
+                            adjEntity = tempEntity;
+                            sheepFound = true;
+                        }
+                    }else{
+                        adjEntity = tempEntity;
+                        sheepFound = true;
+                    }
+                    
+                    
+                    
+                }
+
+                }
+            }
+            
+            
 
         }
     }
 
-    if (false) { // Edit this line with the appropriate condition
+    if (sheepFound) { // Edit this line with the appropriate condition
         // If a sheep with the closest distance is found, try to move towards it
         
         // ?
+        int shiftX = 0;
+        int shiftY = 0;
+        if(adjEntity->getX()>this->getX()){
+            shiftX=1;
+        }else if(adjEntity->getX()==this->getX()){
+            shiftX=0;
+        }else{
+            shiftX=-1;
+        }
+
+        if(adjEntity->getY()>this->getY()){
+            shiftY=1;
+        }else if(adjEntity->getY()==this->getY()){
+            shiftY=0;
+        }else{
+            shiftY=-1;
+        }    
+
+
+        putClone(nextGrid,this->getX()+shiftX,this->getY()+shiftY);
+
     }
     else {
         // No sheep found, move randomly
-        
-        // ?
+         int moveIndex = getRandomMovementIndex(nextGrid);
+        if(moveIndex == -1){
+            putSelf(nextGrid,this->getX(),this->getY());
+        }else{
+            putSelf(nextGrid,this->getX()+getAdjX(moveIndex),this->getY()+getAdjY(moveIndex));
+        }
     }
 }
