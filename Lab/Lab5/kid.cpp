@@ -21,7 +21,15 @@ const char* Kid::name() const { return name_; }
 int Kid::weight() const {return weight_;}
 
 bool Kid::operator<(const Kid& other) const {  // Task 1 - To Do
-
+  if(this->height()<other.height())
+    return true;
+  if(this->gender()<other.gender())
+    return true;
+  if(strcmp(this->name(),other.name())<0)
+    return true;
+  if(this->weight()>other.weight())
+    return true;
+  return false;
 }
 
 Kid& Kid::operator=(const Kid& other) {

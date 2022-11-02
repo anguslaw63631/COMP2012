@@ -12,7 +12,48 @@ class SortedSequence{
     ~SortedSequence() { delete[] data_; }
 
     void add(const T &a) {  // Task 2 - To Do
+      bool newDataUsed = false;
+      if(data_==nullptr){
+        data_ = new T[1];
+        data_[0] = a;
+        capacity_ = 1;
+        size_ = 1;
 
+        
+      }else{
+        if(size_ >= capacity_){
+          capacity_ = 2 * capacity_;
+        }
+        // std::cout<<"capacity_: "<<capacity_<<std::endl;
+        T* newSpace = new T[capacity_];
+        int offset = 0;
+        for(int i=0;i<size_;i++){
+            // std::cout<<"capacity_: "<<capacity_<<std::endl;
+            // std::cout<<"i: "<<i<<std::endl;
+            if(!newDataUsed && a<data_[i+offset]){
+              newSpace[i] = a;
+              size_++;
+              offset = offset -1;
+              newDataUsed = true;
+              // std::cout<<"test"<<std::endl;
+            }else{
+              // std::cout<<"testXX"<<std::endl;
+              newSpace[i] = data_[i+offset]; 
+            }
+              
+        }
+
+        if(!newDataUsed){
+          newSpace[size_] = a;
+          size_++;
+        }
+
+
+        delete[] data_;
+        data_ = newSpace;
+        
+        
+      }
     }
 
     std::string toString() const {
