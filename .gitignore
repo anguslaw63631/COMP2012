@@ -1,3 +1,6 @@
 *.o
+*.d
 *.exe
 AAA_submit.zip
+test.cpp
+test

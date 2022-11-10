@@ -12,7 +12,7 @@ Computer::~Computer(){
 }
 
 // For grading purpose only, you should not call this function.
-void Computer::check_computer(CPU_Model cpu_model, MEM_Model mem_model){
+void Computer::check_computer(CPU_Model cpu_model, MEM_Model mem_model) const{
     std::cout << "QA starts checking the Computer" << std::endl;
 
     if(this->cpu->check_healthy() && this->mem->check_healthy()){

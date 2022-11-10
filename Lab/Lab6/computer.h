@@ -19,7 +19,7 @@ class Computer{
     ~Computer();
 
     // For grading purpose only, you should not call this function.
-    void check_computer(CPU_Model cpu_model, MEM_Model mem_model);
+    void check_computer(CPU_Model cpu_model, MEM_Model mem_model) const;
 };
 
 #endif

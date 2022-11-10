@@ -13,7 +13,7 @@ class Electronics{
     ~Electronics() = default;
 
     // For grading purpose only, you should not call this function.
-    bool check_healthy();
+    bool check_healthy() const;
 };
 
 class CPU: public Electronics{
@@ -32,7 +32,7 @@ class CPU: public Electronics{
     static void print_report();
 
     // For grading purpose only, you should not call this function.
-    bool check_model(CPU_Model model);
+    bool check_model(CPU_Model model) const;
 };
 
 class MEM: public Electronics{
@@ -50,7 +50,7 @@ class MEM: public Electronics{
     static void print_report();
 
     // For grading purpose only, you should not call this function.
-    bool check_model(MEM_Model model);
+    bool check_model(MEM_Model model) const;
 };
 
 #endif

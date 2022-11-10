@@ -13,7 +13,7 @@ CPU::CPU(CPU_Model model, bool healthy): Electronics(healthy), model {model} {
 
 void CPU::print_report(){
     std::cout << "Total number of CPU used: " << manufacture_count << std::endl;
-    std::cout << "Number of defective CPU: " << defect_count << std::endl;
+    std::cout << "Number of Defected CPU: " << defect_count << std::endl;
 }
 
 MEM::MEM(MEM_Model model, bool healthy): Electronics(healthy), model {model} {
@@ -22,11 +22,11 @@ MEM::MEM(MEM_Model model, bool healthy): Electronics(healthy), model {model} {
 
 void MEM::print_report(){
     std::cout << "Total number of MEM used: " << manufacture_count << std::endl;
-    std::cout << "Number of defective MEM: " << defect_count << std::endl;
+    std::cout << "Number of Defected MEM: " << defect_count << std::endl;
 }
 
 // The following functions are all for grading purposes, you should not call them
-bool Electronics::check_healthy(){
+bool Electronics::check_healthy() const{
     std::cout << "QA checks for healthy for electronics...\n";
     if(this->healthy){
         std::cout << "It is working great!\n";
@@ -38,7 +38,7 @@ bool Electronics::check_healthy(){
     }
 }
 
-bool CPU::check_model(CPU_Model model){
+bool CPU::check_model(CPU_Model model) const{
     std::cout << "QA checks for the CPU model...\n";
     if(this->model == model){
         std::cout << "The CPU model is correct! \n";
@@ -50,7 +50,7 @@ bool CPU::check_model(CPU_Model model){
     }
 }
 
-bool MEM::check_model(MEM_Model model){
+bool MEM::check_model(MEM_Model model) const{
     std::cout << "QA checks for the MEM model...\n";
     if(this->model == model){
         std::cout << "The MEM model is correct! \n";
