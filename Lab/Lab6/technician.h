@@ -50,7 +50,8 @@ class Diagnosis_Tool{
 
     public:
     // TODO: friend relationship declaration
-
+    friend class Technician;
+    
     // Use default constructor
     Diagnosis_Tool() = default;
     // Disable copy constructor

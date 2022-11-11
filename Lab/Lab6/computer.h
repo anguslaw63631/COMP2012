@@ -13,7 +13,7 @@ class Computer{
 
     public:
     // TODO: friend relationship declaration
-    
+    friend class Technician;
     Computer() = delete;
     Computer(CPU*, MEM*);
     ~Computer();

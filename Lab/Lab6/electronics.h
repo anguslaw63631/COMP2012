@@ -8,7 +8,8 @@ class Electronics{
     bool healthy;
     public:
     // TODO: friend relationship declaration
-
+    friend class Diagnosis_Tool;
+    friend class Technician;
     Electronics(bool);
     ~Electronics() = default;
 
@@ -22,7 +23,7 @@ class CPU: public Electronics{
 
     public:
     // TODO: friend relationship declaration
-
+    friend class Diagnosis_Tool;
     CPU(CPU_Model, bool healthy = true);
     CPU(const CPU& cpu) = delete;
     ~CPU() = default;
@@ -40,7 +41,7 @@ class MEM: public Electronics{
     MEM_Model model;
     public:
     // TODO: friend relationship declaration
-
+    friend class Diagnosis_Tool;
     MEM(MEM_Model, bool healthy = true);
     MEM(const MEM& mem) = delete;
     ~MEM() = default;
