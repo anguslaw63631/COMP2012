@@ -14,7 +14,7 @@ BinarySearchTree::~BinarySearchTree()
         delete rightSubTree;
 }
 
-BinarySearchTree::BinarySearchTree(const BinarySearchTree& other): value(other.value)
+BinarySearchTree::BinarySearchTree(const BinarySearchTree &other) : value(other.value)
 {
     if (other.leftSubTree != nullptr)
         leftSubTree = new BinarySearchTree(*other.leftSubTree);
@@ -51,41 +51,67 @@ bool BinarySearchTree::hasValue(int valueToFind) const
     return false;
 }
 
-void BinarySearchTree::print(int depth=0) const
+void BinarySearchTree::print(int depth = 0) const
 {
-    if(this == nullptr)
+    if (this == nullptr)
         return;
-    rightSubTree->print(depth+1);
+    rightSubTree->print(depth + 1);
     for (int j = 0; j < depth; j++) // Print the node value
         std::cout << '\t';
     std::cout << value << std::endl;
-    
-    leftSubTree->print(depth+1); // Recursion: left sub-tree
 
+    leftSubTree->print(depth + 1); // Recursion: left sub-tree
 }
 
-
-//Task 1
-bool BinarySearchTree::isSame(const BinarySearchTree* other)
+// Task 1
+bool BinarySearchTree::isSame(const BinarySearchTree *other)
 {
 
+    if (other == nullptr)
+    {
+        return 0;
+    }
+    if (other->hasValue(value))
+    {
+        return 1;
+    }
+    else if (value < other->value)
+    {
+        return isSame(other->leftSubTree);
+    }
+    else
+    {
+        return isSame(other->rightSubTree);
+    }
 }
 
-//Entry of task2
-void BinarySearchTree::buildNewBST(BinarySearchTree* newBST, int newValue)
+// Entry of task2
+void BinarySearchTree::buildNewBST(BinarySearchTree *newBST, int newValue)
 {
     if (!this->hasValue(newValue))
     {
         std::cout << "Invalid value!" << std::endl;
     }
-    newBST->value = newValue;      
-     //Hint: as the add function will ignore the existing nodes, 
-     //you do not neet to consider the ruplicate "newValue" in the newBST  
+    newBST->value = newValue;
+    // Hint: as the add function will ignore the existing nodes,
+    // you do not neet to consider the ruplicate "newValue" in the newBST
     this->traverseAdd(newBST);
 }
 
-//Task 2
-void BinarySearchTree::traverseAdd(BinarySearchTree* newBST)
+// Task 2
+void BinarySearchTree::traverseAdd(BinarySearchTree *newBST)
 {
 
+    if (newBST == nullptr)
+    {
+        return;
+    }
+
+    if (this->leftSubTree != nullptr)
+        this->leftSubTree->traverseAdd(newBST);
+
+    newBST->add(this->value);
+
+    if (this->rightSubTree != nullptr)
+        this->rightSubTree->traverseAdd(newBST);
 }
