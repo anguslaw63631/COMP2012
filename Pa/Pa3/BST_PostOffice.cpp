@@ -128,8 +128,8 @@ bool BST_PostOffice_Node::remove(int id, std::string streetName)
 
     if (this->find(id, streetName) != nullptr)
     {
-        // std::cout << "sss: "  << std::endl;
-        delete this->find(id, streetName);
+        // // std::cout << "sss: "  << std::endl;
+        // this->find(id, streetName);
         return true;
     }
     return false;

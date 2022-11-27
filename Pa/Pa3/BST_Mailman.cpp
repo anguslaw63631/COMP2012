@@ -30,6 +30,14 @@ BST_Mailman_Node::~BST_Mailman_Node()
         delete right;
     if (left != nullptr)
         delete left;
+    for(int i=0;i<currentMailsStored;i++){
+        if(mailPtr[i] == nullptr){
+
+        }else 
+        if(mailPtr[i] !=nullptr){
+            delete mailPtr[i];
+        }
+    }
 }
 
 // TODO: Getters
@@ -171,7 +179,7 @@ Mail *BST_Mailman::find(int id, std::string streetName)
 Mail *BST_Mailman_Node::find(int id)
 {
 
-    for (int i = 0; i < MAX_NUM_MAILS; ++i)
+    for (int i = 0; i < currentMailsStored; ++i)
     {
 
         if (mailPtr[i] != nullptr)
