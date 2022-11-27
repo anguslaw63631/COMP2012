@@ -10,8 +10,9 @@ DEPS	= $(OBJS:.o=.d)
 
 OBJECTS = $(addprefix $(OBJ_DIR)/,$(OBJS))
 OBJECTS_leak = $(addprefix $(OBJ_DIR_leak)/,$(OBJS))
+ZIPFILES = Mail.cpp BST_PostOffice.cpp BST_Mailman.cpp
 
-all: create_directory pa3.exe # pa3_leak.exe
+all: create_directory pa3.exe pa3_leak.exe cleanZip submit.zip cl
 # Remove the '#' in the above line to add pa3_leak.exe,
 # if you want to test memory leakage on your machine. 
 
@@ -38,6 +39,13 @@ $(OBJ_DIR_leak)/%.o: %.cpp
 
 clean:
 	rm -rf $(OBJ_DIR) $(OBJ_DIR_leak) *.exe
+cleanZip:
+	rm  -f AAA_submit.zip
+
+submit.zip: cleanZip
+	zip -r AAA_submit.zip $(ZIPFILES)
+cl:
+	clear
 # If you are using Windows, use the following command to replace "rm -rf $(OBJ_DIR) $(OBJ_DIR_leak) *.exe"
 #	rmdir /Q /S $(OBJ_DIR) $(OBJ_DIR_leak)
 #	del *.exe
