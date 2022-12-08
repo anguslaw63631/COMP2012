@@ -1,0 +1,50 @@
+BST Node for Street: Hash Checking
+------------
+ID: 1
+Hash: 0
+Address: Sample Address 1
+District: 4
+Street Name: Hash Checking
+Content: This should result in 0
+------------
+
+BST Node for Street: Hash Checking 2
+------------
+ID: 2
+Hash: 0
+Address: Sample Address 1
+District: 4
+Street Name: Hash Checking 2
+Content: This should result in 0
+------------
+
+BST Node for Street: Hash Checking 3
+------------
+ID: 3
+Hash: 0
+Address: Sample Address 1
+District: 4
+Street Name: Hash Checking 3
+Content: This should result in 0
+------------
+
+BST Node for Street: Hash Checking 4
+------------
+ID: 4
+Hash: 0
+Address: Sample Address 1
+District: 4
+Street Name: Hash Checking 4
+Content: This should result in 0
+------------
+
+BST Node for Street: Hash Checking 5
+------------
+ID: 5
+Hash: 0
+Address: Sample Address 1
+District: 4
+Street Name: Hash Checking 5
+Content: This should result in 0
+------------
+

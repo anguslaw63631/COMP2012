@@ -1,0 +1,19 @@
+BST Node for Street: Hash Checking
+------------
+ID: 1
+Hash: 6
+Address: Sample Address 2
+District: 4
+Street Name: Hash Checking
+Content: This should result in 0
+------------
+
+------------
+ID: 11
+Hash: 6
+Address: Sample Address 2
+District: 4
+Street Name: Hash Checking
+Content: This should result in 0
+------------
+
